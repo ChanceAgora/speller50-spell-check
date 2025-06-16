@@ -63,7 +63,7 @@ bool load(const char *dictionary)
     while (!feof(file))
     {
         // Read from dictionary
-        c = fgetc(file)
+        c = fgetc(file);
 
         if (isalpha(c) || c == '\'')
         {
