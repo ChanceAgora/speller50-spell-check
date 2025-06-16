@@ -51,7 +51,8 @@ bool load(const char *dictionary)
     char word[LENGTH + 1];
     int index = 0;
 
-    while (fread(c, sizeof(char), 1, file))
+    // Read chars from the file and assemble words
+    while ((c = fgetc(file)) != EOF)
     {
         if (isalpha(c) || c == '\'')
         {
@@ -61,13 +62,34 @@ bool load(const char *dictionary)
         else if (index > 0)
         {
             word[index] = '\0';
+            index = 0;
             unsigned int hash = hash(word);
-            node *item = table[hash];
-            
+            node *cursor = table[hash];
+
+            // Add new word to hash table
+            if (cursor == NULL)
+                table[hash] = malloc(sizeof(node));
+            else
+            {
+                while (cursor->next != NULL)
+                    cursor = cursor->next;
+                cursor-> next = malloc(sizeof(node));
+                cursor = cursor->next;
+            }
+
+            // Ensure memory allocated successfully
+            if (cursor == NULL)
+            {
+                unload();
+                return false;
+            }
+
+            // Set the node's word value to the dictionary word
+            strcpy(cursor->word, word);
         }
     }
 
-    return false;
+    return true;
 }
 
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
