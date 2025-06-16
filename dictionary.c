@@ -74,23 +74,28 @@ bool load(const char *dictionary)
 
             // Add new word to hash table
             if (cursor == NULL)
+            {
                 table[hash] = malloc(sizeof(node));
+                cursor = table[hash];
+                if (cursor == NULL)
+                {
+                    unload();
+                    fclose(file);
+                    return false;
+                }
             else
             {
-                while (cursor->next != NULL)
-                    cursor = cursor->next;
-                cursor-> next = malloc(sizeof(node));
-                cursor = cursor->next;
+                node *temp = malloc(sizeof(node));
+                if (temp == NULL)
+                {
+                    unload();
+                    fclose(file);
+                    return false;
+                }
+                temp->next = cursor;
+                table[hash] = temp;
+                cursor = temp;
             }
-
-            // Ensure memory allocated successfully
-            if (cursor == NULL)
-            {
-                unload();
-                fclose(file);
-                return false;
-            }
-
             // Set the node's word value to the dictionary word
             strcpy(cursor->word, word);
         }
