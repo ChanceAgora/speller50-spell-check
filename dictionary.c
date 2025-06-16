@@ -22,8 +22,14 @@ node *table[N] = {NULL};
 bool check(const char *word)
 {
     // TODO: Implement dictionary lookup
+    node *cursor = table[hash(word)];
     
-
+    while (cursor != NULL)
+    {
+        if (strcmp(cursor->word, word) == 0)
+            return true;
+        cursor = cursor->next;
+    }
     return false;
 }
 
@@ -45,14 +51,12 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
-    unsigned int histLength = 10;
-    int histogram[histLength] = {0}; // Temporary variable for viewing hash buck distribution
-    // TODO: Implement loading dictionary into memory
+    // load dictionary into memory
     char c = 0;
     char word[LENGTH + 1];
     int index = 0;
 
-    // Read chars from the file and assemble words
+    // Read chars from the dictionary and assemble words
     while ((c = fgetc(file)) != EOF)
     {
         if (isalpha(c) || c == '\'')
