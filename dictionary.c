@@ -95,22 +95,13 @@ bool unload(void)
     // TODO: Unload dictionary
     for (int i = 0; i < N; i++)
     {
-        node *temp = table[i];
-
-        // Delete each linked list at each index of table
-        while (temp)
+        code *cursor = table[i];
+        while (cursor != NULL)
         {
-            node *phead = NULL, *ptail = table[i];
-            while (ptail->next != NULL)
-            {
-                phead = ptail;
-                ptail = ptail->next;
-            }
-            free(ptail);
-            if (pheadh)
-                phead->next = NULL;
+            node *next = cursor->next;
+            free(cursor);
+            cursor = next;
         }
-
     }
 
     return false;
