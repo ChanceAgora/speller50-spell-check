@@ -60,8 +60,11 @@ bool load(const char *dictionary)
     int index = 0;
 
     // Read chars from the dictionary and assemble words
-    while ((c = fgetc(file)) != EOF)
+    while (!feof(file))
     {
+        // Read from dictionary
+        c = fgetc(file)
+
         if (isalpha(c) || c == '\'')
         {
             word[index] = c; 
@@ -85,6 +88,7 @@ bool load(const char *dictionary)
                     fclose(file);
                     return false;
                 }
+                cursor->next = NULL;
             }
             else
             {
@@ -100,7 +104,6 @@ bool load(const char *dictionary)
                 cursor = temp;
             }
             // Set the node's word value to the dictionary word
-            cursor->next = NULL;
             strcpy(cursor->word, word);
         }
     }
