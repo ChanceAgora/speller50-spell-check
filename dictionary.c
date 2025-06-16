@@ -68,7 +68,7 @@ bool load(const char *dictionary)
         // Read from dictionary
         c = fgetc(file);
 
-        if (index >= LENGTH)
+        if (index >= LENGTH) // Prevent buffer overflow for words that exceed the maximum word length
         {
             while ((c = fgetc(file)) != '\n' && c != EOF);
             index = 0;
