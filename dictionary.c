@@ -45,7 +45,8 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
-    int histogram[N] = {0}; // Temporary variable for viewing hash buck distribution
+    unsigned int histLength = 10;
+    int histogram[histLength] = {0}; // Temporary variable for viewing hash buck distribution
     // TODO: Implement loading dictionary into memory
     char c = 0;
     char word[LENGTH + 1];
@@ -63,7 +64,7 @@ bool load(const char *dictionary)
         {
             word[index] = '\0';
             index = 0;
-            unsigned int hash = hash(word);
+            unsigned int hash = hash(word) % N;
             node *cursor = table[hash];
 
             // Add new word to hash table
