@@ -87,6 +87,7 @@ bool load(const char *dictionary)
             if (cursor == NULL)
             {
                 unload();
+                fclose(file);
                 return false;
             }
 
@@ -95,6 +96,7 @@ bool load(const char *dictionary)
         }
     }
 
+    fclose(file);
     return true;
 }
 
