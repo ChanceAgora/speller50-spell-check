@@ -2,6 +2,7 @@
 
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "dictionary.h"
@@ -39,15 +40,15 @@ bool check(const char *word)
 unsigned int hash(const char *word)
 {
     // TODO: Improve this hash function
-    unsigned int hash = 5381;
+    unsigned int h = 5381;
     int c = 0;
 
     for (int i = 0; word[i] != '\0'; i++)
     {
-        hash = (hash * 33) + tolower(word[i]);
+        h = (h * 33) + tolower(word[i]);
     }
 
-    return hash % N;
+    return h % N;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
@@ -81,7 +82,7 @@ bool load(const char *dictionary)
         {
             word[index] = '\0';
             index = 0;
-            unsigned int hash = hash(word);
+            unsigned int h = hash(word);
 
             // Allocate Memory for New Word
             node *newNode = malloc(sizeof(node));
@@ -93,8 +94,8 @@ bool load(const char *dictionary)
             }
 
             // Add word to Dictionary
-            newNode->next = table[hash];
-            table[hash] = newNode;
+            newNode->next = table[h];
+            table[h] = newNode;
 
             // Set the node's word value to the dictionary word
             strcpy(newNode->word, word);
