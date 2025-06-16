@@ -73,18 +73,28 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
-    // TODO: Identify number of words in dictionary
+    // Identify number of words in dictionary
+    unsigned int words = 0;
+    for (int i = 0; i < N; i++)
+    {
+        node *cursor = table[i];
+        while (cursor != NULL)
+        {
+            words++;
+            cursor = cursor->next;
+        }
+    }
 
-    return 0;
+    return words;
 }
 
 // Unloads dictionary from memory, returning true if successful, else false
 bool unload(void)
 {
-    // TODO: Unload dictionary
+    // Unload dictionary
     for (int i = 0; i < N; i++)
     {
-        code *cursor = table[i];
+        node *cursor = table[i];
         while (cursor != NULL)
         {
             node *next = cursor->next;
@@ -93,5 +103,5 @@ bool unload(void)
         }
     }
 
-    return false;
+    return true;
 }
