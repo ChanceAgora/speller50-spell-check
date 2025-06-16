@@ -13,7 +13,7 @@ typedef struct node
 } node;
 
 // TODO: Test numbers to choose number of buckets in hash table
-const unsigned int N = 1000;
+const unsigned int N = 131071; // Prime number for buckets
 
 // Hash table
 node *table[N];
@@ -22,6 +22,7 @@ node *table[N];
 bool check(const char *word)
 {
     // TODO: Implement dictionary lookup
+    
 
     return false;
 }
@@ -30,12 +31,12 @@ bool check(const char *word)
 unsigned int hash(const char *word)
 {
     // TODO: Improve this hash function
-    unsigned long hash = 5381;
+    unsigned int hash = 5381;
     int c = 0;
 
     for (int i = 0; *word[i] != '\0'; i++)
     {
-        hash = (hash * 33) + hash) + tolower(*word[i];
+        hash = (hash * 33) + hash + tolower(*word[i]);
     }
 
     return hash % N;
@@ -44,7 +45,39 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
+    int histogram[N] = {0}; // Temporary variable for viewing hash buck distribution
     // TODO: Implement loading dictionary into memory
+    char c = 0;
+    char *word[LENGTH + 1];
+    int index = 0;
+
+    for (int i = 0; i < N; i++)
+    {
+        table[i] = malloc(sizeof(node));
+        if (table[i]->next == NULL)
+        {
+            unload();
+            return false;
+        }
+        table[i]->next = NULL;
+    }
+
+    while (fread(c, sizeof(char), 1, file))
+    {
+        if (isalpha(c) || c == '\'')
+        {
+            word[index] = c; 
+            index++;
+        }
+        else if (index > 0)
+        {
+            word[index] = '\0';
+            unsigned int hash = hash(word);
+            node *item = table[hash];
+            
+        }
+    }
+
     return false;
 }
 
@@ -60,6 +93,7 @@ unsigned int size(void)
 bool unload(void)
 {
     // TODO: Unload dictionary
+    
 
     return false;
 }
