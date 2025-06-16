@@ -93,7 +93,25 @@ unsigned int size(void)
 bool unload(void)
 {
     // TODO: Unload dictionary
-    
+    for (int i = 0; i < N; i++)
+    {
+        node *temp = table[i];
+
+        // Delete each linked list at each index of table
+        while (temp)
+        {
+            node *phead = NULL, *ptail = table[i];
+            while (ptail->next != NULL)
+            {
+                phead = ptail;
+                ptail = ptail->next;
+            }
+            free(ptail);
+            if (pheadh)
+                phead->next = NULL;
+        }
+
+    }
 
     return false;
 }
