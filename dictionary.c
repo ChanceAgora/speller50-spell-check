@@ -14,6 +14,7 @@ typedef struct node
 
 // TODO: Test numbers to choose number of buckets in hash table
 const unsigned int N = 131071; // Prime number for buckets
+unsigned int wordCount = 0;
 
 // Hash table
 node *table[N] = {NULL};
@@ -117,19 +118,7 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
-    // Identify number of words in dictionary
-    unsigned int words = 0;
-    for (int i = 0; i < N; i++)
-    {
-        node *cursor = table[i];
-        while (cursor != NULL)
-        {
-            words++;
-            cursor = cursor->next;
-        }
-    }
-
-    return words;
+    return wordCount;
 }
 
 // Unloads dictionary from memory, returning true if successful, else false
