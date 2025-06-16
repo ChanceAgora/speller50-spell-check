@@ -64,7 +64,7 @@ bool load(const char *dictionary)
         {
             word[index] = '\0';
             index = 0;
-            unsigned int hash = hash(word) % N;
+            unsigned int hash = hash(word);
             node *cursor = table[hash];
 
             // Add new word to hash table
