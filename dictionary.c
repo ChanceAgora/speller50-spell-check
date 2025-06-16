@@ -21,7 +21,7 @@ node *table[N] = {NULL};
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // TODO: Implement dictionary lookup
+    // Check for the word in the dictionary
     node *cursor = table[hash(word)];
     
     while (cursor != NULL)
@@ -42,7 +42,7 @@ unsigned int hash(const char *word)
 
     for (int i = 0; word[i] != '\0'; i++)
     {
-        hash = (hash * 33) + tolower(*word[i]);
+        hash = (hash * 33) + tolower(word[i]);
     }
 
     return hash % N;
@@ -52,6 +52,7 @@ unsigned int hash(const char *word)
 bool load(const char *dictionary)
 {
     // load dictionary into memory
+    FILE *file = fopen(dictionary, "r");
     char c = 0;
     char word[LENGTH + 1];
     int index = 0;
