@@ -16,7 +16,7 @@ typedef struct node
 const unsigned int N = 131071; // Prime number for buckets
 
 // Hash table
-node *table[N];
+node *table[N] = {NULL};
 
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
@@ -34,9 +34,9 @@ unsigned int hash(const char *word)
     unsigned int hash = 5381;
     int c = 0;
 
-    for (int i = 0; *word[i] != '\0'; i++)
+    for (int i = 0; word[i] != '\0'; i++)
     {
-        hash = (hash * 33) + hash + tolower(*word[i]);
+        hash = (hash * 33) + tolower(*word[i]);
     }
 
     return hash % N;
@@ -48,19 +48,8 @@ bool load(const char *dictionary)
     int histogram[N] = {0}; // Temporary variable for viewing hash buck distribution
     // TODO: Implement loading dictionary into memory
     char c = 0;
-    char *word[LENGTH + 1];
+    char word[LENGTH + 1];
     int index = 0;
-
-    for (int i = 0; i < N; i++)
-    {
-        table[i] = malloc(sizeof(node));
-        if (table[i]->next == NULL)
-        {
-            unload();
-            return false;
-        }
-        table[i]->next = NULL;
-    }
 
     while (fread(c, sizeof(char), 1, file))
     {
