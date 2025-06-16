@@ -26,7 +26,7 @@ bool check(const char *word)
     
     while (cursor != NULL)
     {
-        if (strcmp(cursor->word, word) == 0)
+        if (strcasecmp(cursor->word, word) == 0)
             return true;
         cursor = cursor->next;
     }
@@ -53,6 +53,8 @@ bool load(const char *dictionary)
 {
     // load dictionary into memory
     FILE *file = fopen(dictionary, "r");
+    if (!file)
+        return false;
     char c = 0;
     char word[LENGTH + 1];
     int index = 0;
@@ -83,6 +85,7 @@ bool load(const char *dictionary)
                     fclose(file);
                     return false;
                 }
+            }
             else
             {
                 node *temp = malloc(sizeof(node));
@@ -97,6 +100,7 @@ bool load(const char *dictionary)
                 cursor = temp;
             }
             // Set the node's word value to the dictionary word
+            cursor->next = NULL;
             strcpy(cursor->word, word);
         }
     }
