@@ -70,7 +70,7 @@ bool load(const char *dictionary)
 
         if (index >= LENGTH)
         {
-            while (fgetc(file) != '\n' && c != EOF);
+            while ((c = fgetc(file)) != '\n' && c != EOF);
             index = 0;
         }
         else if (isalpha(c) || c == '\'')
