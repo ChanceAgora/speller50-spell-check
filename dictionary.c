@@ -67,7 +67,7 @@ bool load(const char *dictionary)
         c = fgetc(file);
 
         if (index >= LENGTH)
-            return false;
+            while (fgetc(file) != '\n');
         else if (isalpha(c) || c == '\'')
         {
             word[index] = c; 
