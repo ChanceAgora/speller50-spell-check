@@ -94,6 +94,7 @@ bool load(const char *dictionary)
 
             // Set the node's word value to the dictionary word
             strcpy(newNode->word, word);
+            wordCount++;
         }
     }
 
